@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -10,4 +12,23 @@ app.MapGet("/addHeader2", (HttpResponse resp) => {
     return new {name = "Luiz Gustavo", AggregateException = 35};
 });
 
+app.MapPost("/saveProduc", (Product prod) => {
+    return prod.Code +  " - " + prod.Name;
+});
+
+app.MapGet("/getProduct", ( [FromQuery] string dateStart, string dateEnd) => {
+    return dateStart + " - " + dateEnd;
+});
+
+app.MapGet("/getProduct/{code}", ([FromRoute] string code) => {
+    return code;
+});
+
 app.Run();
+
+public class Product{
+    public String Code { get; set; }
+    public String Name {get; set;} 
+
+
+}
